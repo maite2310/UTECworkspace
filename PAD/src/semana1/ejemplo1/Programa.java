@@ -51,29 +51,32 @@ public class Programa {
 
 		}
 
-		if (connection != null) {
-			System.out.println("Conexión creada con éxito, puede tomar el contro lde tu base de Datos!");
-		} else {
+		if (connection == null) {
+			
 			System.out.println("Error creando la conexión!!");
 		}
 		
-		// Primera consulta
+		// Imprime todos los cursos persistidos en la base de datos INSTITUTO
 		testConsulta1(connection);
 		
+		//Imprime todos los cursos correspondiente a la materia de nombre 'Arquitectura de Sistemas' persistidos en la base de datos INSTITUTO
+		testConsulta2(connection);
 		
 	}
 	
 	public static void testConsulta1(Connection connection){
 		
 		System.out.println();
-		System.out.println("-------- Consulta de Prueba ------");
+		System.out.println("-------- Consulta de Prueba 1 ------");
 		
 		try {
-			System.out.println("Ejecutando: SELECT * FROM CURSOS WHERE ID_CURSI");
-			
+					
 			
 			Statement sentencia = connection.createStatement();
-			String consulta = "SELECT * FROM CURSOS WHERE ID_CURSO=1";
+			String consulta = "SELECT * FROM CURSOS";
+			
+			System.out.println("Ejecutando: " + consulta);
+			
 			ResultSet resultado = sentencia.executeQuery(consulta);
 			
 			LinkedList<Curso> cursos = new LinkedList<>();
@@ -95,28 +98,81 @@ public class Programa {
 				
 			}
 			
-			System.out.println();
-			System.out.println("Listando objetos obtenidos:");
-			System.out.println();
-			
-			for (Curso c : cursos){
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
-				
-				System.out.println("Id Curso: " + c.getIdCurso());
-				System.out.println("Id Docente: " + c.getIdDocente());
-				System.out.println("Id Materia: " + c.getIdMateria());
-				System.out.println("Fec Inicio: " + sdf.format(c.getFechaInicio()));
-				System.out.println("Fec Fin: " + sdf.format(c.getFechaFin()));
-				System.out.println("Modalidad: " + c.getModalidad());
-				System.out.println();
-
-			}
+			imprimirCursos(cursos);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void testConsulta2(Connection connection){
+		
+		System.out.println();
+		System.out.println("-------- Consulta de Prueba 2 ------");
+		
+		try {
+			
+			
+			
+			Statement sentencia = connection.createStatement();
+			String consulta = "SELECT * FROM CURSOS INNER JOIN  MATERIAS on CURSOS.ID_MATERIA= MATERIAS.ID_MATERIA WHERE MATERIAS.NOMBRE='Arquitectura de Sistemas'";
+
+			System.out.println("Ejecutando: " + consulta);
+			
+			ResultSet resultado = sentencia.executeQuery(consulta);
+			
+			
+			LinkedList<Curso> cursos = new LinkedList<>();
+			
+			while (resultado.next()){
+				
+				int idCurso = resultado.getInt("ID_CURSO");
+				
+				int idDocente = resultado.getInt("ID_DOCENTE");
+				int idMateria = resultado.getInt("ID_MATERIA");
+				
+				
+				Date fechaInicio = new Date(resultado.getDate("FEC_INICIO").getTime());
+				Date fechaFin = new Date(resultado.getDate("FEC_FIN").getTime());
+				String modalidad = resultado.getString("MODALIDAD");
+				
+				Curso curso = new Curso(idCurso, idDocente, idMateria, fechaInicio, fechaFin, modalidad);
+				cursos.add(curso);
+				
+			}
+			
+			imprimirCursos(cursos);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static void imprimirCursos(LinkedList<Curso> cursos){
+		
+		
+		
+			System.out.println();
+			System.out.println("Listando cursos obtenidos:");
+			System.out.println();
+			
+			
+			for (Curso c : cursos){
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+				
+				System.out.println("  Id Curso: " + c.getIdCurso());
+				System.out.println("  Id Docente: " + c.getIdDocente());
+				System.out.println("  Id Materia: " + c.getIdMateria());
+				System.out.println("  Fec Inicio: " + sdf.format(c.getFechaInicio()));
+				System.out.println("  Fec Fin: " + sdf.format(c.getFechaFin()));
+				System.out.println("  Modalidad: " + c.getModalidad());
+				System.out.println();
+	
+			}
+		
 	}
 	
 	

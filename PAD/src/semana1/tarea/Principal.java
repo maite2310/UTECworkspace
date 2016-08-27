@@ -1,5 +1,4 @@
-package semana1.teorico;
-
+package semana1.tarea;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +8,11 @@ import java.sql.Statement;
 import java.util.Locale;
 
 public class Principal {
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		
-		Locale.setDefault(new Locale("es","ES"));
+		
+		//Locale.setDefault(new Locale("es","ES"));
 		
 		try{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -24,9 +24,11 @@ public class Principal {
 			return;
 		}
 		
+		
+		
 		Connection connection = null;
 		try{
-			connection =DriverManager.getConnection(
+			connection = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521:xe", "INSTITUTO",
 					"INSTITUTO");
 		}
@@ -39,20 +41,21 @@ public class Principal {
 		
 		try {			 
 			Statement sentencia = connection.createStatement();
-			String consulta = "SELECT * FROM CURSOS";
+			String consulta = "SELECT count(*) FROM MATRICULAS WHERE ID_CURSO=6";
 			ResultSet resultado = sentencia.executeQuery(consulta);
-			
+			int count=0;
 			while(resultado.next()){
 				
-				int idDocente = resultado.getInt(1);
-				int idMateria = resultado.getInt(2);
+				count = resultado.getInt(1);
+				
 			}
+			
+			System.out.println("La cantidad de matrículas en el curso 6 es:" + count);
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
-	}
-	
-}
 
+	}
+
+}
