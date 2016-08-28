@@ -1,4 +1,4 @@
-package semana2.ejemplo1.DAO;
+package semana2.ejemplo1Solucion.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import semana2.ejemplo1.entidades.Curso;
+import semana2.ejemplo1Solucion.entidades.Curso;
 
 public class DAOCursos {
 	

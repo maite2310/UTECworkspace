@@ -1,11 +1,15 @@
-package semana2.ejemplo1;
+package semana2.ejemplo1Solucion;
 
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import semana2.ejemplo1.DAO.DAOCursos;
-import semana2.ejemplo1.entidades.Curso;
+import semana2.ejemplo1Solucion.DAO.DAOCarreras;
+import semana2.ejemplo1Solucion.DAO.DAOCursos;
+import semana2.ejemplo1Solucion.DAO.DAOMaterias;
+import semana2.ejemplo1Solucion.entidades.Carrera;
+import semana2.ejemplo1Solucion.entidades.Curso;
+import semana2.ejemplo1Solucion.entidades.Materia;
 
 public class Principal {
 
@@ -23,9 +27,11 @@ public class Principal {
 		System.out.println();
 		System.out.println("Listando todos los cursos de materia id 2");
 		System.out.println();
-		imprimirCursos(cursosTodos);
+		imprimirCursos(cursosMateria2);
 		
-
+		Materia materia = DAOMaterias.findByNombre("Testing Funcional");
+		LinkedList<Curso> cursosMateria3 = DAOCursos.findByIdMateria(materia.getIdMateria());
+		imprimirCursos(cursosMateria3);
 	}
 	
 	private static void imprimirCursos(LinkedList<Curso> cursos){
