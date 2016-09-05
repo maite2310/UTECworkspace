@@ -1,18 +1,18 @@
-package semana3.ejemplo1.entidades;
+package semana2.ejemploVC;
 
 import java.util.Date;
 
 public class Curso {
 
-	private long idCurso;
-	private long idDocente;
-	private long idMateria;
+	private int idCurso;
+	private int idDocente;
+	private int idMateria;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String modalidad;
 
-	public Curso(long idCurso, long idDocente, long idMateria, Date fechaInicio, Date fechaFin, String modalidad) {
-		
+	public Curso(int idCurso, int idDocente, int idMateria, Date fechaInicio, Date fechaFin, String modalidad) {
+		super();
 		this.idCurso = idCurso;
 		this.idDocente = idDocente;
 		this.idMateria = idMateria;
@@ -21,7 +21,7 @@ public class Curso {
 		this.modalidad = modalidad;
 	}
 
-	public long getIdCurso() {
+	public int getIdCurso() {
 		return idCurso;
 	}
 
@@ -29,7 +29,7 @@ public class Curso {
 		this.idCurso = idCurso;
 	}
 
-	public long getIdDocente() {
+	public int getIdDocente() {
 		return idDocente;
 	}
 
@@ -37,7 +37,7 @@ public class Curso {
 		this.idDocente = idDocente;
 	}
 
-	public long getIdMateria() {
+	public int getIdMateria() {
 		return idMateria;
 	}
 

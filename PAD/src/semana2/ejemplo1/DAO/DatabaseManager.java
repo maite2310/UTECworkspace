@@ -18,13 +18,46 @@ public class DatabaseManager {
 	
 	static{
 		try{
-			//Locale.setDefault(new Locale("es","ES"));
+			Locale.setDefault(new Locale("es","ES"));
 			databaseConnection = DriverManager.getConnection(CONNECTION_STRING, USUARIO, CLAVE);
+			System.out.println("Se creó la conexión con éxito");
 		}
 		catch(Exception e){
 			System.out.println("Error creando la conexión a la base de datos");
+			e.printStackTrace();
 		}
 	}
+
+//		
+//	static{
+//		
+//		Locale.setDefault(new Locale("es","ES"));
+//		try {
+//			
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//
+//		} catch (ClassNotFoundException e) {
+//
+//			System.out.println("No tienes el driver en tu build-path?");
+//			e.printStackTrace();
+//		}
+//
+//		System.out.println("Se encontró el Driver para Oracle DB");
+//		try {
+//
+//			databaseConnection = DriverManager.getConnection(
+//					"jdbc:oracle:thin:@localhost:1521:xe", "INSTITUTO",
+//					"INSTITUTO");
+//			System.out.println("Se creó la conexión con éxito");
+//
+//		} catch (SQLException e) {
+//
+//			System.out.println("Error al conectase!!");
+//			e.printStackTrace();
+//
+//		}
+//		
+//	}
 	
 	public static Connection getConnection(){
 		return databaseConnection;

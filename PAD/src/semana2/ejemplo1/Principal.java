@@ -1,29 +1,41 @@
 package semana2.ejemplo1;
 
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 import semana2.ejemplo1.DAO.DAOCursos;
+import semana2.ejemplo1.DAO.DatabaseManager;
 import semana2.ejemplo1.entidades.Curso;
 
 public class Principal {
 
 	public static void main(String[] args) {
 		
+		
+		Connection c = DatabaseManager.getConnection();
+		Connection c2 = DatabaseManager.getConnection();
+		
+			
+		
+		
+		
+		
+		
 		//Obtengo todos los cursos
 		LinkedList<Curso> cursosTodos = DAOCursos.findAll();
 		System.out.println();
 		System.out.println("Listando todos los cursos");
 		System.out.println();
-		imprimirCursos(cursosTodos);
+		//imprimirCursos(cursosTodos);
 		
 		//Obtengo los cursos de la materia de id 2
 		LinkedList<Curso> cursosMateria2 = DAOCursos.findByIdMateria(2);
 		System.out.println();
 		System.out.println("Listando todos los cursos de materia id 2");
 		System.out.println();
-		imprimirCursos(cursosTodos);
+		//imprimirCursos(cursosTodos);
 		
 
 	}
