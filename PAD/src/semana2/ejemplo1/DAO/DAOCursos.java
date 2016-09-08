@@ -22,6 +22,11 @@ public class DAOCursos {
 	public static boolean insert(Curso curso){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_CURSO);
+			
+			String aux = "INSERT INTO CURSOS (ID_CURSO,ID_DOCENTE, ID_MATERIA, FEC_INICIO, FEC_FIN, MODALIDAD) "
+					+ "values (?,?, ?, ?,?,?)";
+			
+			
 			statement.setLong(1, curso.getIdCurso());
 			statement.setLong(2, curso.getIdDocente());
 			statement.setLong(3, curso.getIdMateria());
@@ -44,7 +49,8 @@ public class DAOCursos {
 	public static boolean edit(Curso curso){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE_CURSO);
-			
+			 String aux = "UPDATE CURSOS SET ID_DOCENTE = ?, ID_MATERIA=?, FEC_INICIO=?,"
+			 		+ " FEC_FIN=?, MODALIDAD=? WHERE ID_CURSO=?";
 			statement.setLong(1, curso.getIdDocente());
 			statement.setLong(2, curso.getIdMateria());
 			//Hay que pasar del tipo date de java.util a date de java.sql, para poder insertar en la BD

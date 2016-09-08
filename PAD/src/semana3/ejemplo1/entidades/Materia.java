@@ -12,6 +12,14 @@ public class Materia {
 		this.carrera = carrera;
 	}
 
+	public Materia( String nombre, Carrera carrera) {
+
+		this.idMateria = 0;
+		this.nombre = nombre;
+		this.carrera = carrera;
+	}
+
+	
 	public long getIdMateria() {
 		return idMateria;
 	}

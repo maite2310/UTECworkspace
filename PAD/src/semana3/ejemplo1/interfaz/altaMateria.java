@@ -21,7 +21,6 @@ import java.awt.Color;
 
 public class altaMateria extends JPanel {
 	private JTextField textNombre;
-	private JTextField textIdMateria;
 
 	/**
 	 * Create the panel.
@@ -30,24 +29,15 @@ public class altaMateria extends JPanel {
 		setLayout(null);
 		
 		textNombre = new JTextField();
-		textNombre.setBounds(82, 67, 86, 20);
+		textNombre.setBounds(82, 67, 191, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
-		
-		textIdMateria = new JTextField();
-		textIdMateria.setBounds(82, 36, 86, 20);
-		add(textIdMateria);
-		textIdMateria.setColumns(10);
 		
 
 		JLabel labelError = new JLabel("");
 		labelError.setForeground(Color.BLACK);
-		labelError.setBounds(124, 172, 46, 14);
+		labelError.setBounds(26, 172, 277, 14);
 		add(labelError);
-		
-		JLabel lblNewLabel = new JLabel("Id");
-		lblNewLabel.setBounds(26, 39, 46, 14);
-		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		lblNewLabel_1.setBounds(26, 70, 46, 14);
@@ -58,28 +48,30 @@ public class altaMateria extends JPanel {
 		add(lblCarrera);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(82, 105, 86, 20);
+		comboBox.setBounds(82, 105, 191, 20);
 		add(comboBox);
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		//Al hacer click en ingrasar se llama al controladorMaterias para dar de alta una materia nueva
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Si algun cmpo es vacio se muestra mensaje
-				if(textIdMateria.getText().isEmpty() || textNombre.getText().isEmpty())
+				if( textNombre.getText().isEmpty())
 					labelError.setText("Completar todos los campos");
 				else{
-					//si todos los campos están completos se sigue para el alta
-					long idMateria = Long.parseLong( textIdMateria.getText()) ;
+					//si todos los campos están completos se sigue para el alta					
 					String nombreMateria = textNombre.getText();
 					String nombreCarrera = comboBox.getSelectedItem().toString();
 					
 					try{
-						ControladorMaterias.crearMateria(idMateria, nombreMateria, nombreCarrera);
+						ControladorMaterias.crearMateria(nombreMateria, nombreCarrera);
+						//Si pasó la función crearMateria es que fue un ingreso exitoso
 						labelError.setText("Ingreso exitoso");
-						textIdMateria.setText("");
+						//Si inicializa el campo de nombre
 						textNombre.setText("");
 					}
-					catch(MateriaYaExistente e){
+					catch(Exception e){
+						//Se muestra el mensaje de error
 						labelError.setText(e.getMessage());
 					}
 				}

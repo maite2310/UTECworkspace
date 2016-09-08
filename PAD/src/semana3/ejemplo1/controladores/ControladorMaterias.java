@@ -10,23 +10,23 @@ import semana3.ejemplo1.excepciones.MateriaYaExistente;
 
 public class ControladorMaterias {
 	
-	public static boolean existeMateria(long idMateria){
-		Materia materia = DAOMaterias.find(idMateria);
+	public static boolean existeMateria(String nombre, String carrera){
+		Materia materia = DAOMaterias.findByNombreAndCarrera(nombre, carrera);
 		if(materia == null)
 			return false;
 		else
 			return true;
 	}
 	
-	public static boolean crearMateria(long idMateria, String nombre, String nombreCarrera) throws MateriaYaExistente {
+	public static boolean crearMateria(String nombre, String nombreCarrera) throws MateriaYaExistente {
 		
-		if(existeMateria(idMateria)){
-			throw new MateriaYaExistente("Ya existe la materia con id " + idMateria);
+		if(existeMateria(nombre, nombreCarrera)){
+			throw new MateriaYaExistente("Ya existe la materia " + nombre + " para la carrera "+ nombreCarrera);
 		}
 		
-		Carrera carrera = DAOCarreras.findByNombre(nombre);
+		Carrera carrera = DAOCarreras.findByNombre(nombreCarrera);
 		
-		Materia materia = new Materia(idMateria, nombre, carrera);
+		Materia materia = new Materia(nombre, carrera);
 		return DAOMaterias.insert(materia);				
 	}
 	

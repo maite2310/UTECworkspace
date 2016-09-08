@@ -12,7 +12,7 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		
-		//Locale.setDefault(new Locale("es","ES"));
+		Locale.setDefault(new Locale("es","ES"));
 		
 		try{
 			Class.forName("oracle.jdbc.driver.OracleDriver");

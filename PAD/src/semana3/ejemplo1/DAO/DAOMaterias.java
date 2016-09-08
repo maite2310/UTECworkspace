@@ -11,22 +11,23 @@ import semana3.ejemplo1.entidades.Materia;
 public class DAOMaterias {
 	private static final String ALL_MATERIAS = "SELECT * FROM MATERIAS";
 	//private static final String CURSOS_MATERIA = "SELECT * FROM CURSOS WHERE ID_MATERIA=?";
-	private static final String INSERT = "INSERT INTO MATERIAS (ID_MATERIA,NOMBRE, ID_CARRERA) values (?,?, ?)";
+	private static final String INSERT = "INSERT INTO MATERIAS (ID_MATERIA,NOMBRE, ID_CARRERA) SELECT MAX(ID_MATERIA)+1, ?, ?  FROM MATERIAS";
 	private static final String UPDATE = "UPDATE MATERIAS SET NOMBRE = ?, ID_CARRERA=? WHERE ID_MATERIA=?";
 	private static final String DELETE = "DELETE FROM MATERIAS WHERE ID_MATERIA=?"; 
 	private static final String SELECT_MATERIA = "SELECT * FROM MATERIAS WHERE ID_MATERIA=?";
+	private static final String SELECT_MATERIACARRERA = "SELECT * FROM MATERIAS INNER JOIN CARRERAS ON MATERIAS.ID_CARRERA = CARRERAS.ID_CARRERA WHERE MATERIAS.NOMBRE=? AND CARRERAS.NOMBRECARRERA = ?";
 	
 	//Inserta el curso pasado por parámetro
 	public static boolean insert(Materia materia){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT);
-			statement.setLong(1, materia.getIdMateria());
-			statement.setString(2, materia.getNombre());
-			statement.setLong(3, materia.getCarrera().getIdCarrera());
-									
-			int retorno = statement.executeUpdate();
+			
+			statement.setString(1, materia.getNombre());
+			statement.setLong(2, materia.getCarrera().getIdCarrera());
+			
+			statement.execute();
 								
-			return retorno>0;
+			return true;
 			
 		}
 		catch(SQLException e){
@@ -94,12 +95,33 @@ public class DAOMaterias {
 		
 	}
 	
-	//Obtiene un curso determinado
 	public static Materia find(long idMateria){
 				
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(SELECT_MATERIA);
 			statement.setLong(1, idMateria);
+									
+			ResultSet resultado = statement.executeQuery();
+			Materia materia = null;
+			while (resultado.next()){				
+				materia = getMateriaFromResultSet(resultado);	
+			}
+			return materia;	
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+		
+
+	}
+	
+	public static Materia findByNombreAndCarrera(String nombre, String carrera){
+		
+		try{
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(SELECT_MATERIACARRERA);
+			statement.setString(1, nombre);
+			statement.setString(2, carrera);
 									
 			ResultSet resultado = statement.executeQuery();
 			Materia materia = null;

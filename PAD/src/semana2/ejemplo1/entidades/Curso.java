@@ -6,6 +6,7 @@ public class Curso {
 
 	private long idCurso;
 	private long idDocente;
+	//private Docente docente;
 	private long idMateria;
 	private Date fechaInicio;
 	private Date fechaFin;

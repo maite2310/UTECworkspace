@@ -9,6 +9,10 @@ import javax.swing.table.DefaultTableModel;
 import semana3.ejemplo1.controladores.ControladorMaterias;
 import semana3.ejemplo1.entidades.Materia;
 import javax.swing.JScrollPane;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
 
 public class listadoMaterias extends JPanel {
 	private JTable table;
@@ -17,21 +21,20 @@ public class listadoMaterias extends JPanel {
 	 * Create the panel.
 	 */
 	public listadoMaterias() {
-		setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(33, 11, 344, 278);
-		add(table);
+		table.setBackground(Color.WHITE);
 		
-		//headers for the table
-        String[] columns = new String[] { "Id", "Nombre", "Carrera"};
-        //actual data for the table in a 2d array
-        Object[][] data = new Object[][] {
-            {1, "John", 40.0, false },
-            {2, "Rambo", 70.0, false },
-            {3, "Zorro", 60.0, true },
-        };
+		//table.setBounds(33, 11, 344, 278);
+		//add(table);
+		
+		//Nombre de las columnas de la tabla
+        String[] columnas = new String[] { "Id", "Nombre", "Carrera"};
+            
+        //Se obtienen las materias para llenar la tabla
         LinkedList<Materia> materias = ControladorMaterias.obtenerMaterias();
+        /*Los datos de una tabla se pueden ver como una matriz o un doble array de objetos 
+         * (ya que los campos son o numero o caraceres se especifica que el tipo de datos es un objeto genérico)*/
         Object[][] datosTabla = new Object[materias.size()][3];
         int fila = 0;
         for(Materia m : materias){
@@ -41,12 +44,12 @@ public class listadoMaterias extends JPanel {
 			fila++;
         }
         
-		/*
-		 * Este codigo indica que las celdas no son editables y que son todas
-		 * del tipos String
-		 */
-		DefaultTableModel model = new DefaultTableModel(datosTabla, columns) {
-
+		//Se crea un modelo para setearle a la tabla, de esta forma se indica los datos y las columnas
+		DefaultTableModel model = new DefaultTableModel(datosTabla, columnas) {
+			/*
+			 * Este codigo indica que las celdas no son editables y que son todas
+			 * del tipos String
+			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -57,9 +60,20 @@ public class listadoMaterias extends JPanel {
 				return String.class;
 			}
 		};
+		setLayout(null);
+		
 
 		table.setModel(model);
-		add(new JScrollPane(table));
+				
+		//Se debe colocar la tabla dentro de un jscrollpane ya que sino no se ven los nombres de las columnas
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(10, 36, 396, 174);		 
+		add(scrollPane);
+		
+		JLabel lblListadoDeMaterias = new JLabel("Listado de Materias");
+		lblListadoDeMaterias.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblListadoDeMaterias.setBounds(124, 11, 150, 14);
+		add(lblListadoDeMaterias);
 
 	}
 }
