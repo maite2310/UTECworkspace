@@ -15,6 +15,7 @@ public class DAOMaterias {
 	private static final String DELETE = "DELETE FROM MATERIAS WHERE ID_MATERIA=?"; 
 	private static final String SELECT_MATERIA = "SELECT * FROM MATERIAS WHERE ID_MATERIA=?";
 	private static final String SELECT_MATERIACARRERA = "SELECT * FROM MATERIAS INNER JOIN CARRERAS ON MATERIAS.ID_CARRERA = CARRERAS.ID_CARRERA WHERE MATERIAS.NOMBRE=? AND CARRERAS.NOMBRECARRERA = ?";
+	private static final String GET_MAX_ID= "SELECT MAX(ID_MATERIA) FROM MATERIAS";
 	
 	//Inserta la materia pasada por parámetro
 	public static boolean insert(Materia materia){
@@ -153,5 +154,22 @@ public class DAOMaterias {
 		Materia materia = new Materia(idMateria, nombre, carrera);
 		
 		return materia;
+	}
+
+	public static long getMaxId(){
+		try{
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(GET_MAX_ID);
+												
+			ResultSet resultado = statement.executeQuery();
+			long maxId = 0;
+			while (resultado.next()){				
+				maxId = resultado.getLong(1);
+			}
+			return maxId;	
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return -1;
+		}
 	}
 }
