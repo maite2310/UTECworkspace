@@ -33,4 +33,17 @@ public class ControladorMaterias {
 	public static LinkedList<Materia> obtenerMaterias(){
 		return DAOMaterias.findAll();
 	}
+	
+	public static Materia obtenerMateria(long idMateria){
+		return DAOMaterias.find(idMateria);
+	}
+	
+	public static boolean editarMateria(long idMateria, String nombre, String nombreCarrera){
+		Carrera carrera = DAOCarreras.findByNombre(nombreCarrera);
+		
+		Materia materia = new Materia(idMateria, nombre, carrera);
+				
+		return DAOMaterias.edit(materia);
+	}
+	
 }

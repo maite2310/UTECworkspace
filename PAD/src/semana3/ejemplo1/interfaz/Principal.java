@@ -51,6 +51,7 @@ public class Principal {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmIngresarMateria = new JMenuItem("Ingresar Materia");
+		//Al hacer click en ingresar materia se debe mostrar el panel de altaMateria
 		mntmIngresarMateria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Creo el panel de altaCurso
@@ -64,6 +65,7 @@ public class Principal {
 		mnNewMenu.add(mntmIngresarMateria);
 		
 		JMenuItem mntmListadoMaterias = new JMenuItem("Listado Materias");
+		//Al hacer click en listado materias se debe mostrar el panel de listadoMaterias
 		mntmListadoMaterias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Creo el panel de listadoMaterias
@@ -76,7 +78,7 @@ public class Principal {
 		});
 		mnNewMenu.add(mntmListadoMaterias);
 		
-		//Creo el panel de listadoMaterias
+		//Por defecto al iniciar la aplicación se muestra el listado de materias
 		listadoMaterias panel = new listadoMaterias();
 		//Lo seteo como contenido de la ventana
 		frame.setContentPane(panel);

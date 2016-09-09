@@ -10,24 +10,23 @@ import semana3.ejemplo1.entidades.Carrera;
 
 public class DAOCarreras {
 	private static final String ALL_CARRERAS = "SELECT * FROM CARRERAS";
-	//private static final String CURSOS_MATERIA = "SELECT * FROM CURSOS WHERE ID_MATERIA=?";
-	private static final String INSERT = "INSERT INTO CARRERAS (ID_CARRERA,NOMBRECARRERA, NIVEL) values (?,?, ?)";
+	private static final String INSERT = "INSERT INTO CARRERAS (ID_CARRERA,NOMBRECARRERA, NIVEL) SELECT MAX(ID_CARRERA)+1,?,? FROM CARRERAS";	
 	private static final String UPDATE = "UPDATE CARRERAS SET NOMBRECARRERA = ?, NIVEL=? WHERE ID_CARRERA=?";
 	private static final String DELETE = "DELETE FROM CARRERAS WHERE ID_CARRERA=?"; 
 	private static final String SELECT_CARRERA = "SELECT * FROM CARRERAS WHERE ID_CARRERA=?";
 	private static final String SELECT_CARRERA_BY_NOMBRE = "SELECT * FROM CARRERAS WHERE NOMBRECARRERA=?";
 	
-	//Inserta el curso pasado por parámetro
+	//Inserta la carrera pasada por parámetro
 	public static boolean insert(Carrera carrera){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT);
-			statement.setLong(1, carrera.getIdCarrera());
-			statement.setString(2, carrera.getNombre());
-			statement.setString(3, carrera.getNivel());
+			
+			statement.setString(1, carrera.getNombre());
+			statement.setString(2, carrera.getNivel());
 									
-			int retorno = statement.executeUpdate();
+			statement.execute();
 								
-			return retorno>0;
+			return true;
 			
 		}
 		catch(SQLException e){
@@ -36,6 +35,7 @@ public class DAOCarreras {
 		}
 	}
 	
+	//Modifica los campos de la carrera pasada como parámetro
 	public static boolean edit(Carrera carrera){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE);
@@ -53,6 +53,7 @@ public class DAOCarreras {
 		}
 	}
 	
+	//Borra la carrera pasada como parámetro
 	public static boolean delete(Carrera carrera){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(DELETE);
@@ -70,7 +71,7 @@ public class DAOCarreras {
 	}
 	
 
-	//Obtiene todos los cursos almacenados
+	//Obtiene todos las carreras almacenadas
 	public static LinkedList<Carrera> findAll(){
 		LinkedList<Carrera> carreras = new LinkedList<>();
 		
@@ -94,7 +95,7 @@ public class DAOCarreras {
 		
 	}
 	
-	//Obtiene una carrera determinado
+	//Obtiene una carrera determinada
 	public static Carrera find(long idCarrera){
 				
 		try{
@@ -116,7 +117,7 @@ public class DAOCarreras {
 
 	}
 	
-	
+	//Obtiene una carrera por su nombre
 	public static Carrera findByNombre(String nombre){
 				
 		try{

@@ -10,14 +10,13 @@ import semana3.ejemplo1.entidades.Materia;
 
 public class DAOMaterias {
 	private static final String ALL_MATERIAS = "SELECT * FROM MATERIAS";
-	//private static final String CURSOS_MATERIA = "SELECT * FROM CURSOS WHERE ID_MATERIA=?";
 	private static final String INSERT = "INSERT INTO MATERIAS (ID_MATERIA,NOMBRE, ID_CARRERA) SELECT MAX(ID_MATERIA)+1, ?, ?  FROM MATERIAS";
 	private static final String UPDATE = "UPDATE MATERIAS SET NOMBRE = ?, ID_CARRERA=? WHERE ID_MATERIA=?";
 	private static final String DELETE = "DELETE FROM MATERIAS WHERE ID_MATERIA=?"; 
 	private static final String SELECT_MATERIA = "SELECT * FROM MATERIAS WHERE ID_MATERIA=?";
 	private static final String SELECT_MATERIACARRERA = "SELECT * FROM MATERIAS INNER JOIN CARRERAS ON MATERIAS.ID_CARRERA = CARRERAS.ID_CARRERA WHERE MATERIAS.NOMBRE=? AND CARRERAS.NOMBRECARRERA = ?";
 	
-	//Inserta el curso pasado por parámetro
+	//Inserta la materia pasada por parámetro
 	public static boolean insert(Materia materia){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT);
@@ -36,6 +35,7 @@ public class DAOMaterias {
 		}
 	}
 	
+	//Edita los campos de la materia pasada
 	public static boolean edit(Materia materia){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE);
@@ -54,6 +54,7 @@ public class DAOMaterias {
 		}
 	}
 	
+	//Borra la materia pasada como parámetro
 	public static boolean delete(Materia materia){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(DELETE);
@@ -71,7 +72,7 @@ public class DAOMaterias {
 	}
 	
 
-	//Obtiene todos los cursos almacenados
+	//Obtiene todos las materias almacenadas
 	public static LinkedList<Materia> findAll(){
 		LinkedList<Materia> materias = new LinkedList<>();
 		
@@ -95,6 +96,7 @@ public class DAOMaterias {
 		
 	}
 	
+	//Obtiene una materia buscando por id
 	public static Materia find(long idMateria){
 				
 		try{
@@ -116,6 +118,7 @@ public class DAOMaterias {
 
 	}
 	
+	//Obtiene una materia buscando por nombre de la materia y nombre de carrera
 	public static Materia findByNombreAndCarrera(String nombre, String carrera){
 		
 		try{

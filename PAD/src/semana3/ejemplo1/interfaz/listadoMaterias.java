@@ -10,9 +10,14 @@ import semana3.ejemplo1.controladores.ControladorMaterias;
 import semana3.ejemplo1.entidades.Materia;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
+import java.awt.Point;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class listadoMaterias extends JPanel {
 	private JTable table;
@@ -23,11 +28,59 @@ public class listadoMaterias extends JPanel {
 	public listadoMaterias() {
 		
 		table = new JTable();
-		table.setBackground(Color.WHITE);
 		
+		table.setBackground(Color.WHITE);
+
+		cargarTabla();
+		//Se debe colocar la tabla dentro de un jscrollpane ya que sino no se ven los nombres de las columnas
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(10, 36, 396, 174);		 
+		add(scrollPane);
+
 		//table.setBounds(33, 11, 344, 278);
 		//add(table);
 		
+				setLayout(null);
+		
+		
+		JLabel lblListadoDeMaterias = new JLabel("Listado de Materias");
+		lblListadoDeMaterias.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblListadoDeMaterias.setBounds(124, 11, 150, 14);
+		add(lblListadoDeMaterias);
+
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//JTable table =(JTable) arg0.getSource();
+		        Point p = arg0.getPoint();
+		        int row = table.rowAtPoint(p);
+		        long idMateria = Long.parseLong( table.getModel().getValueAt(row, 0).toString() );
+		        if (arg0.getClickCount() == 2) {
+		            //System.out.println("Doble click"); 
+		            editarMateria frame = new editarMateria(idMateria);
+		            frame.setVisible(true);
+		            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		                @Override
+		                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		                	//System.out.println("Cerro Editar");
+		                	recargarPanel();
+		                }
+		            });
+		        }
+			}
+		});
+	}
+	
+	public void recargarPanel(){
+		//Cargo tabla de nuevo (para que se tomen los cambios de la edición)
+		cargarTabla();
+		this.revalidate();
+		this.repaint();
+		
+	}
+	
+	public void cargarTabla(){
 		//Nombre de las columnas de la tabla
         String[] columnas = new String[] { "Id", "Nombre", "Carrera"};
             
@@ -60,20 +113,10 @@ public class listadoMaterias extends JPanel {
 				return String.class;
 			}
 		};
-		setLayout(null);
 		
 
 		table.setModel(model);
-				
-		//Se debe colocar la tabla dentro de un jscrollpane ya que sino no se ven los nombres de las columnas
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 36, 396, 174);		 
-		add(scrollPane);
-		
-		JLabel lblListadoDeMaterias = new JLabel("Listado de Materias");
-		lblListadoDeMaterias.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblListadoDeMaterias.setBounds(124, 11, 150, 14);
-		add(lblListadoDeMaterias);
+
 
 	}
 }
