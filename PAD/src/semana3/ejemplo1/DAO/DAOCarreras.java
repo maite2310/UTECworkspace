@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import semana3.ejemplo1.entidades.Carrera;
+import semana3.ejemplo1.enums.Nivel;
 
 public class DAOCarreras {
 	private static final String ALL_CARRERAS = "SELECT * FROM CARRERAS";
@@ -22,7 +23,7 @@ public class DAOCarreras {
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT);
 			
 			statement.setString(1, carrera.getNombre());
-			statement.setString(2, carrera.getNivel());
+			statement.setString(2, carrera.getNivel().name());
 									
 			statement.execute();
 								
@@ -40,7 +41,7 @@ public class DAOCarreras {
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE);
 			statement.setString(1, carrera.getNombre());
-			statement.setString(2, carrera.getNivel());
+			statement.setString(2, carrera.getNivel().name());
 			statement.setLong(3, carrera.getIdCarrera());						
 			int retorno = statement.executeUpdate();
 								
@@ -146,7 +147,7 @@ public class DAOCarreras {
 		String nombre = resultado.getString("NOMBRECARRERA");
 		String nivel = resultado.getString("NIVEL");
 		
-		Carrera carrera = new Carrera(idCarrera, nombre, nivel);
+		Carrera carrera = new Carrera(idCarrera, nombre, Nivel.valueOf( nivel) );
 		
 		return carrera;
 	}

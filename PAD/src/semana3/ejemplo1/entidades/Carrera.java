@@ -1,13 +1,15 @@
 package semana3.ejemplo1.entidades;
 
+import semana3.ejemplo1.enums.Nivel;
+
 public class Carrera {
 	private long idCarrera;
 	private String nombre;
-	private String nivel;
+	private Nivel nivel;
 	
 	
 	
-	public Carrera(int idCarrera, String nombre, String nivel) {
+	public Carrera(int idCarrera, String nombre, Nivel nivel) {
 		
 		this.idCarrera = idCarrera;
 		this.nombre = nombre;
@@ -26,10 +28,10 @@ public class Carrera {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getNivel() {
+	public Nivel getNivel() {
 		return nivel;
 	}
-	public void setNivel(String nivel) {
+	public void setNivel(Nivel nivel) {
 		this.nivel = nivel;
 	}
 	

@@ -36,7 +36,13 @@ public class DAOMateriasAnual {
 			//Luego de que se insertó 
 			PreparedStatement statement2 = DatabaseManager.getConnection().prepareStatement(INSERT);
 			statement2.setLong(1, maxIdMaterias+1);
-			statement2.setBoolean(1, materia.isDictadaEnAnioPar());
+			if(materia.isDictadaEnAnioPar()){
+				statement2.setInt(2, 1);
+			}
+			else{
+				statement2.setInt(2, 0);
+			}
+			
 			statement2.execute();
 								
 			return true;
@@ -60,8 +66,13 @@ public class DAOMateriasAnual {
 			
 			//Luego actualizo los campos propios (en la tabla MATERIASANUAL)
 			PreparedStatement statement2 = DatabaseManager.getConnection().prepareStatement(UPDATE);
-			
-			statement2.setBoolean(1, materia.isDictadaEnAnioPar());			
+			if(materia.isDictadaEnAnioPar()){
+				statement2.setInt(1, 1);
+			}
+			else{
+				statement2.setInt(1, 0);
+			}
+				
 			statement2.setLong(2, materia.getIdMateria());
 			int retorno2 = statement2.executeUpdate();
 								
@@ -173,7 +184,11 @@ public class DAOMateriasAnual {
 	//Funcion auxiliar que traduce un registro a una instancia de materia
 	private static MateriaAnual getMateriaAnualFromResultSet(ResultSet resultado) throws SQLException{
 		int idMateria = resultado.getInt("ID_MATERIA");		
-		boolean dictadoPar = resultado.getBoolean(2);
+		int dictadoParInt =  resultado.getInt(2);
+		boolean dictadoPar = false;
+		if(dictadoParInt == 1)
+			dictadoPar = true;
+		
 		//Se llama a DAOMaterias para obtener la materia padre
 		Materia materiaPadre = DAOMaterias.find(idMateria);
 		//Con los datos del padre se crea una instancia de hijo
