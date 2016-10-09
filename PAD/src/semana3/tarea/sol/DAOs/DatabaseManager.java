@@ -1,4 +1,4 @@
-package manejadores;
+package semana3.tarea.sol.DAOs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,25 +12,23 @@ public class DatabaseManager {
 	private static Connection databaseConnection;
 	
 	private static String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static String USUARIO = "VETERINARIA";
-	private static String CLAVE = "VETERINARIA";
+	private static String USUARIO = "AGENDA";
+	private static String CLAVE = "AGENDA";
+	
 	
 	static{
-		try {
+		try{
 			Locale.setDefault(new Locale("es","ES"));
-			databaseConnection = DriverManager.getConnection(CONNECTION_STRING,USUARIO,CLAVE);
-		} catch (SQLException e) {
+			databaseConnection = DriverManager.getConnection(CONNECTION_STRING, USUARIO, CLAVE);
+		}
+		catch(Exception e){
 			System.out.println("Error creando la conexión a la base de datos");
-		} 
-
+			e.printStackTrace();
+		}
 	}
 	
-	public static Connection getConnection() {
-		
+	public static Connection getConnection(){
 		return databaseConnection;
-		
 	}
 
 }
-
-

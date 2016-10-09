@@ -9,11 +9,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		Carrera carrera = DAOCarreras.find(4);
-//		MateriaAnual ma = new MateriaAnual(1, "Teoria de Computación 2", carrera, true);
-//		DAOMateriasAnual.insert(ma);
-//		
-//		MateriaAnual m = DAOMateriasAnual.find(16);
+		Carrera carrera = DAOCarreras.find(4);
+		MateriaAnual ma = new MateriaAnual(1, "Teoria de Computación 5 Anual", carrera, true);
+		
+		DAOMateriasAnual.insert(ma);
+		
+		MateriaAnual m = DAOMateriasAnual.find(15);
 	}
 
 }

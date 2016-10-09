@@ -21,6 +21,9 @@ import java.awt.Color;
 
 public class altaMateria extends JPanel {
 	private JTextField textNombre;
+	private JLabel labelError;
+	private JLabel lblNewLabel_1;
+	private JLabel lblCarrera;
 
 	/**
 	 * Create the panel.
@@ -34,16 +37,16 @@ public class altaMateria extends JPanel {
 		textNombre.setColumns(10);
 		
 
-		JLabel labelError = new JLabel("");
+		labelError = new JLabel("");
 		labelError.setForeground(Color.BLACK);
 		labelError.setBounds(26, 172, 277, 14);
 		add(labelError);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nombre");
+		lblNewLabel_1 = new JLabel("Nombre");
 		lblNewLabel_1.setBounds(26, 70, 46, 14);
 		add(lblNewLabel_1);
 		
-		JLabel lblCarrera = new JLabel("Carrera");
+		lblCarrera = new JLabel("Carrera");
 		lblCarrera.setBounds(26, 108, 46, 14);
 		add(lblCarrera);
 		

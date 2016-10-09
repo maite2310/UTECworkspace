@@ -7,12 +7,18 @@ public class PruebaEnum {
     }
     
     public static void main(String[] args) {
+    	
+    	TipoClase tc = TipoClase.valueOf("SOCIAL");
+    	String tcName = tc.name();
+    	
         TipoClase tipo1= TipoClase.LENGUA;
-        TipoClase tipo2 = TipoClase.SOCIAL;      
-        
+        TipoClase tipo2 = TipoClase.SOCIAL; 
+                       
         if(tipo1.name().equals("LENGUA")){
         	System.out.println("Tipo Clase es LENGUA");
         }
+        
+        TipoClase tipo3 = TipoClase.valueOf("CIENCIA");
         
         System.out.println("La posición de LENGUA es:"+tipo1.ordinal());
         System.out.println("La posición de SOCIAL es:"+tipo2.ordinal());

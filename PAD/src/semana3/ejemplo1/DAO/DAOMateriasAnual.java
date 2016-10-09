@@ -25,6 +25,8 @@ public class DAOMateriasAnual {
 		try{
 			//Como materias anual es hijo de materias, primero hay que insertar el registro de materia y luego el registro de materiaAnual (con referencia al ID_MATERIA del primero)
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_MATERIA);
+			
+			//"INSERT INTO MATERIAS (ID_MATERIA,NOMBRE, ID_CARRERA) values (?,?,?)";
 			//Obtengo el ultimo ID_MATERIA utilizado
 			long maxIdMaterias = DAOMaterias.getMaxId();
 			statement.setLong(1, maxIdMaterias+1);
@@ -58,7 +60,7 @@ public class DAOMateriasAnual {
 		try{
 			//Primero actualizo los campos del padre (en la tabla MATERIAS)
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE_MATERIA);
-			
+			//"UPDATE MATERIA SET NOMBRE = ?, ID_CARRERA=? WHERE ID_MATERIA=?"
 			statement.setString(1, materia.getNombre());
 			statement.setLong(2, materia.getCarrera().getIdCarrera());
 			statement.setLong(3, materia.getIdMateria());

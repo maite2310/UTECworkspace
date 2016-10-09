@@ -6,16 +6,18 @@ public class Empleado {
 	private String nombre;
 	private String apellido;
 	private double sueldo;
-	private long idSucursal;
+	//private long idSucursal;
+	private Sucursal sucursal; 
 	
-	public Empleado(long idEmpleado, String ci, String nombre, String apellido, double sueldo, long idSucursal) {
+	public Empleado(long idEmpleado, String ci, String nombre, String apellido, double sueldo, Sucursal sucursal) {
 
 		this.idEmpleado = idEmpleado;
 		this.ci = ci;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.sueldo = sueldo;
-		this.idSucursal = idSucursal;
+		this.sucursal = sucursal;
+		//this.idSucursal = idSucursal;
 	}
 
 	public long getIdEmpleado() {
@@ -58,12 +60,12 @@ public class Empleado {
 		this.sueldo = sueldo;
 	}
 
-	public long getIdSucursal() {
-		return idSucursal;
+	public Sucursal getSucursal() {
+		return sucursal;
 	}
 
-	public void setIdSucursal(long idSucursal) {
-		this.idSucursal = idSucursal;
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 	
 	

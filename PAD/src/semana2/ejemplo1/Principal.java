@@ -17,9 +17,6 @@ public class Principal {
 		Connection c = DatabaseManager.getConnection();
 		Connection c2 = DatabaseManager.getConnection();
 		
-			
-		
-		
 		
 		
 		

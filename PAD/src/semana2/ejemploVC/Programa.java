@@ -57,8 +57,8 @@ public class Programa {
 		}
 		
 		//Imprime todos los cursos correspondiente a la materia de nombre 'Arquitectura de Sistemas' persistidos en la base de datos INSTITUTO
-		//testConsulta2(connection);
-		testConsulta3(connection);
+		testConsulta2(connection);
+		//testConsulta3(connection);
 	}
 	
 	public static void testConsulta2(Connection connection){
@@ -112,7 +112,7 @@ public class Programa {
 			
 			PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM CURSOS WHERE ID_DOCENTE = ? AND MODALIDAD = ?");
 			sentencia.setLong(1, 1);
-			//sentencia.setString(2, "Online");
+			sentencia.setString(2, "Online");
 			ResultSet resultado = sentencia.executeQuery();
 						
 			LinkedList<Curso> cursos = new LinkedList<>();
